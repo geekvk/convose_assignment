@@ -4,6 +4,14 @@ import axios from "axios";
 import SearchItem from "@/components/SearchItem";
 import {BAE_URL} from "@/constants/Api";
 
+const sortInterests = (interests) => {
+    return interests.sort((a, b) => {
+        if (b.match === a.match)
+            return a.name.localeCompare(b.name)
+
+        return b.match - a.match
+    })
+}
 const SearchBar = ()  => {
     const[query, setQuery] = useState("")
     const[suggestions, setSuggestions] = useState([])
@@ -40,7 +48,8 @@ const SearchBar = ()  => {
                     },
                 });
                 console.log(response.data)
-                setSuggestions(response.data.autocomplete || []);
+                const sorted = sortInterests(response.data.autocomplete || [])
+                setSuggestions(sorted)
             } catch (error) {
                 console.error("Error fetching suggestions:", error);
             }
