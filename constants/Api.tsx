@@ -1,0 +1,1 @@
+export const BAE_URL = "https://be-v2.convose.com/autocomplete/interests"
